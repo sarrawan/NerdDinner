@@ -1,0 +1,20 @@
+﻿@model IEnumerable<NerdDinner.Models.Dinner>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Upcoming Dinners</h2>
+
+<ul>
+    @foreach (var d in Model) { 
+        <li>
+            @d.Title (@d.EventDate)
+        </li>
+     } 
+</ul>
+
+<p>
+    @Html.ActionLink("Create New Dinner", "Create")
+</p>
+
