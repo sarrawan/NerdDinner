@@ -12,6 +12,7 @@ namespace NerdDinner.Models
         public DateTime EventDate { get; set; }
         public string Address { get; set; }
         public string HostedBy { get; set; }
+        public string Country { get; set; }
 
         public virtual ICollection<RSVP> RSVPs { get; set; }
     }
