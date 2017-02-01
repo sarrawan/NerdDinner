@@ -18,6 +18,7 @@ namespace NerdDinner.Controllers
             return View(allDinners);
         }
 
+        // GET: Dinners/Details/1
         public ActionResult Details(int id)
         {
             var singleDinner = nerdDinners.Dinners.Find(id);
@@ -26,6 +27,13 @@ namespace NerdDinner.Controllers
                 return View("NotFound");
             }
             return View(singleDinner);
+        }
+
+        // GET: Dinners/Edit/1
+        public ActionResult Edit(int id)
+        {
+            var dinner = nerdDinners.Dinners.SingleOrDefault(d => d.DinnerID == id);
+            return View(dinner);
         }
     }
 }

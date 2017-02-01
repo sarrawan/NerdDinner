@@ -180,6 +180,7 @@
     <Content Include="Views\Dinners\NotFound.cshtml" />
     <Content Include="Views\Dinners\Details.cshtml" />
     <Content Include="Views\Dinners\Index.cshtml" />
+    <Content Include="Views\Dinners\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
