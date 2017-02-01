@@ -12,7 +12,7 @@ namespace NerdDinner.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "NerdDinner.Models.NerdDinners";
         }
 
