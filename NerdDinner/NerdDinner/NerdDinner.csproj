@@ -185,6 +185,8 @@
     <Content Include="Views\Dinners\Create.cshtml" />
     <Content Include="Views\Dinners\Delete.cshtml" />
     <Content Include="Views\Dinners\Deleted.cshtml" />
+    <Content Include="Views\Dinners\DinnerForm.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

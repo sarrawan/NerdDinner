@@ -21,6 +21,13 @@ namespace NerdDinner.Controllers
             return View(dinners.ToList());
         }
 
+        // GET: Home/About
+        public ActionResult About()
+        {
+            ViewBag.Message = "Are you hungry?";
+            return View();
+        }
+
         // GET: Home/Create
         public ActionResult Create()
         {

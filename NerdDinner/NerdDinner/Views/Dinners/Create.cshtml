@@ -2,66 +2,8 @@
 
 <h2>Host a Dinner</h2>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-
-
-    <fieldset>
-        
-        <p>
-            <div>
-                <label>Dinner Title:</label>
-            </div>
-            @Html.TextBox("Title", Model.Dinner.Title)
-            @Html.ValidationMessage("Title", "", new {@class = "text-danger"})
-        </p>
-        
-        <p>
-            <div>
-                <label>Event Date:</label>
-            </div>
-            @Html.TextBox("EventDate", String.Format("{0:g}", Model.Dinner.EventDate))
-            @Html.ValidationMessage("EventDate", "", new { @class = "text-danger" })
-        </p>
-        
-        <p>
-            <div>
-                <label>Description:</label>
-            </div>
-            @Html.TextArea("Description", Model.Dinner.Description)
-            @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
-        </p>
-        
-        <p>
-            <div>
-                <label>Address:</label>
-            </div>
-            @Html.TextBox("Address", Model.Dinner.Address)
-            @Html.ValidationMessage("Address", "", new { @class = "text-danger" })
-        </p>
-        
-        <p>
-            <div>
-                <label>Country:</label>
-            </div>
-            @Html.TextBox("Country", Model.Dinner.Country)
-            @Html.ValidationMessage("Country", "", new { @class = "text-danger" })
-        </p>
-        
-        <p>
-            <div>
-                <label>Hosted By:</label>
-            </div>
-            @Html.TextBox("HostedBy")
-            @Html.ValidationMessage("HostedBy", "", new { @class = "text-danger" })
-        </p>
-        
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-
-    </fieldset>
+@{
+    Html.RenderPartial("DinnerForm");
 }
 
 <div>
