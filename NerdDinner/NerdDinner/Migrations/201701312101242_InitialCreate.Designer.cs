@@ -13,7 +13,7 @@ namespace NerdDinner.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201701312032400_InitialCreate"; }
+            get { return "201701312101242_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

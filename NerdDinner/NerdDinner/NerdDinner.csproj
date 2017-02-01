@@ -151,13 +151,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DinnersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201701312032400_InitialCreate.cs" />
-    <Compile Include="Migrations\201701312032400_InitialCreate.Designer.cs">
-      <DependentUpon>201701312032400_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201701312101242_InitialCreate.cs" />
+    <Compile Include="Migrations\201701312101242_InitialCreate.Designer.cs">
+      <DependentUpon>201701312101242_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dinner.cs" />
@@ -176,6 +177,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Dinners\NotFound.cshtml" />
+    <Content Include="Views\Dinners\Details.cshtml" />
+    <Content Include="Views\Dinners\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -187,8 +191,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701312032400_InitialCreate.resx">
-      <DependentUpon>201701312032400_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701312101242_InitialCreate.resx">
+      <DependentUpon>201701312101242_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

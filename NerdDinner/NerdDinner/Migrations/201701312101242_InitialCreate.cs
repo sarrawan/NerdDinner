@@ -12,10 +12,10 @@ namespace NerdDinner.Migrations
                 c => new
                     {
                         DinnerID = c.Int(nullable: false, identity: true),
-                        Title = c.String(),
+                        Title = c.String(nullable: false, maxLength: 20),
                         EventDate = c.DateTime(nullable: false),
-                        Address = c.String(),
-                        HostedBy = c.String(),
+                        Address = c.String(nullable: false, maxLength: 30),
+                        HostedBy = c.String(nullable: false),
                         Country = c.String(),
                     })
                 .PrimaryKey(t => t.DinnerID);
