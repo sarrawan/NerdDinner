@@ -11,5 +11,13 @@ namespace NerdDinner.Models
     {
         public DbSet<Dinner> Dinners { get; set; }
         public DbSet<RSVP> RSVPs { get; set; }
+
+        public IQueryable<Dinner> FindUpcomingDinners()
+        {
+            return from dinner in Dinners
+                where dinner.EventDate > DateTime.Now
+                orderby dinner.EventDate
+                select dinner;
+        }
     }
 }

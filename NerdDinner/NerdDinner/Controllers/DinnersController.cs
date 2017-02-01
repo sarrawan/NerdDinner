@@ -15,10 +15,15 @@ namespace NerdDinner.Controllers
         NerdDinners nerdDinnersDB = new NerdDinners();
 
         // GET: Dinners
-        public ActionResult Index()
+        //      Dinners?page=2
+        public ActionResult Index(int? page)
         {
-            var allDinners = nerdDinnersDB.Dinners.ToList();
-            return View(allDinners);
+            const int pageSize = 10;
+            //var allDinners = nerdDinnersDB.Dinners.ToList();
+            var upcomingDinners = nerdDinnersDB.FindUpcomingDinners();
+            var paginatedDinners = new PaginatedList<Dinner>(upcomingDinners, page ?? 0, pageSize);
+                //upcomingDinners.Skip((page ?? 0) * pageSize).Take(pageSize).ToList();
+            return View(paginatedDinners);
         }
 
         // GET: Dinners/Details/1
