@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -35,13 +36,16 @@ namespace NerdDinner.Controllers
         public ActionResult Edit(int id)
         {
             var dinner = nerdDinnersDB.Dinners.SingleOrDefault(d => d.DinnerID == id);
-            return View(dinner);
+            //ViewBag.Country = new SelectList(dinner.CountryCollection, "id", "value");
+            ViewBag.Country = new SelectList(nerdDinnersDB.Dinners, "Country", "Country").Distinct();
+            return View(new DinnerFromViewModel(dinner));
         }
 
         // POST: Dinners/Edit/1
         [HttpPost]
         public ActionResult Edit(Dinner dinner, int id)
         {
+
             if (ModelState.IsValid)
             {
                 dinner.DinnerID = id;
@@ -49,8 +53,8 @@ namespace NerdDinner.Controllers
                 nerdDinnersDB.SaveChanges();
                 return RedirectToAction("Details", new {id = dinner.DinnerID});
             }
-
-            return View(dinner);
+            //ViewBag.Country = new SelectList(dinner.CountryCollection, "Countries", "Name", dinner.Country);
+            return View(new DinnerFromViewModel(dinner));
         }
 
         // GET: Dinners/Create
@@ -60,7 +64,7 @@ namespace NerdDinner.Controllers
             {
                 EventDate = DateTime.Now.AddDays(7)
             };
-            return View(dinner);
+            return View(new DinnerFromViewModel(dinner));
         }
 
         // POST: /Dinners/Create
@@ -74,7 +78,7 @@ namespace NerdDinner.Controllers
                 return RedirectToAction("Details", new {id=dinner.DinnerID});
             }
 
-            return View(dinner);
+            return View(new DinnerFromViewModel(dinner));
         }
 
         //GET: Dinners/Delete/1

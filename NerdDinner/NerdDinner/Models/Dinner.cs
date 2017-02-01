@@ -30,6 +30,10 @@ namespace NerdDinner.Models
         [Required(ErrorMessage = "*Please enter the Country of the Dinner")]
         public string Country { get; set; }
 
+        public string Description { get; set; }
+
         public virtual ICollection<RSVP> RSVPs { get; set; }
+
+
     }
 }

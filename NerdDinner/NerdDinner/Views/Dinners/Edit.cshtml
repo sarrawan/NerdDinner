@@ -1,4 +1,4 @@
-﻿@model NerdDinner.Models.Dinner
+﻿@model NerdDinner.Models.DinnerFromViewModel
 
 
 <h2>Edit Dinner</h2>
@@ -13,7 +13,7 @@
             <div>
                 <label>Dinner Title:</label>
             </div> 
-            @Html.TextBox("Title")
+            @Html.TextBox("Title", Model.Dinner.Title)
             @Html.ValidationMessage("Title", "", new { @class = "text-danger" })
         </p>
 
@@ -21,7 +21,7 @@
             <div>
                 <label>Event Date:</label>
             </div>
-            @Html.TextBox("EventDate", String.Format("{0:g}", Model.EventDate))
+            @Html.TextBox("EventDate", String.Format("{0:g}", Model.Dinner.EventDate))
             @Html.ValidationMessage("EventDate", "", new {@class="text-danger"})
         </p>
         
@@ -29,7 +29,7 @@
             <div>
                 <label>Description:</label>
             </div>
-            @Html.TextArea("Description")
+            @Html.TextArea("Description", Model.Dinner.Description)
             @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
         </p>
         
@@ -37,7 +37,7 @@
             <div>
                 <label>Address:</label>
             </div>
-            @Html.TextBox("Address")
+            @Html.TextBox("Address", Model.Dinner.Address)
             @Html.ValidationMessage("Address", "", new { @class = "text-danger" })
         </p>
         
@@ -45,7 +45,7 @@
             <div>
                 <label>Country:</label>
             </div>
-            @Html.TextBox("Country")
+            @Html.TextBox("Country", Model.Dinner.Country)
             @Html.ValidationMessage("Country", "", new { @class = "text-danger" })
         </p>
         
@@ -53,7 +53,7 @@
             <div>
                 <label>Hosted By:</label>
             </div>
-            @Html.TextBox("HostedBy")
+            @Html.TextBox("HostedBy", Model.Dinner.HostedBy)
             @Html.ValidationMessage("HostedBy", "", new { @class = "text-danger" })
         </p>
         

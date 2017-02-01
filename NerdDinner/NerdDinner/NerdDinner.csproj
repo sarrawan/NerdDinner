@@ -162,6 +162,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Dinner.cs" />
+    <Compile Include="Models\DinnerFromViewModel.cs" />
     <Compile Include="Models\NerdDinners.cs" />
     <Compile Include="Models\NerdDinnersInitializer.cs" />
     <Compile Include="Models\RSVP.cs" />

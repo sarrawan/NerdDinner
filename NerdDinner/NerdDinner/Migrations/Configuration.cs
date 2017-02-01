@@ -39,7 +39,8 @@ namespace NerdDinner.Migrations
                     EventDate = DateTime.Parse("12/31/2017"),
                     Address = "One Microsoft Way",
                     Country = "USA",
-                    HostedBy = "ScottGu@gmail.com"
+                    HostedBy = "ScottGu@gmail.com",
+                    Description = ""
                 },
                 new Dinner
                 {
@@ -47,7 +48,8 @@ namespace NerdDinner.Migrations
                     EventDate = DateTime.Parse("4/1/2017"),
                     Address = "Two Microsoft Way",
                     Country = "USA",
-                    HostedBy = "ScottGu@gmail.com"
+                    HostedBy = "ScottGu@gmail.com",
+                    Description = ""
                 }
             };
 
