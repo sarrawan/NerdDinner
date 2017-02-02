@@ -26,7 +26,7 @@ namespace NerdDinner.Models
                     EventDate = DateTime.Parse("12/31/2017"),
                     Address = "One Microsoft Way",
                     Country = countires.Single(c => c.Name == "USA"),
-                    HostedBy = "ScottGu@gmail.com",
+                    ContactEmail = "ScottGu@gmail.com",
                     Description = ""
                 },
                 new Dinner
@@ -35,7 +35,7 @@ namespace NerdDinner.Models
                     EventDate = DateTime.Parse("4/1/2017"),
                     Address = "Two Microsoft Way",
                     Country = countires.Single(c => c.Name == "UK"),
-                    HostedBy = "ScottGu@gmail.com",
+                    ContactEmail = "ScottGu@gmail.com",
                     Description = ""
                 }
             };

@@ -41,23 +41,32 @@ namespace NerdDinner.Controllers
         }
 
         // GET: Dinners/Edit/1
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var dinner = nerdDinnersDB.Dinners.Find(id);
             //ViewBag.Country = new SelectList(dinner.CountryCollection, "id", "value");
             ViewBag.CountryID = new SelectList(nerdDinnersDB.Countries, "CountryID", "Name", dinner.CountryID);
+            if (!dinner.IsHostedBy(User.Identity.Name))
+            {
+                return View("InvalidOwner");
+            }
             return View(new DinnerFromViewModel(dinner));
             //return View(dinner);
         }
 
         // POST: Dinners/Edit/1
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(Dinner dinner, int id)
         {
-
             if (ModelState.IsValid)
             {
                 dinner.DinnerID = id;
+                if (!dinner.IsHostedBy(User.Identity.Name))
+                {
+                    return View("InvalidOwner");
+                }
                 nerdDinnersDB.Entry(dinner).State = EntityState.Modified;
                 nerdDinnersDB.SaveChanges();
                 return RedirectToAction("Details", new {id = dinner.DinnerID});
@@ -67,6 +76,7 @@ namespace NerdDinner.Controllers
             //return View(dinner);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Dinners/Create
         public ActionResult Create()
         {
@@ -81,10 +91,17 @@ namespace NerdDinner.Controllers
 
         // POST: /Dinners/Create
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Dinner dinner)
         {
             if (ModelState.IsValid)
             {
+                dinner.HostedBy = User.Identity.Name;
+
+                RSVP rsvp = new RSVP();
+                rsvp.AttendeeName = User.Identity.Name;
+                dinner.RSVPs.Add(rsvp);
+           
                 nerdDinnersDB.Dinners.Add(dinner);
                 nerdDinnersDB.SaveChanges();
                 return RedirectToAction("Details", new {id=dinner.DinnerID});

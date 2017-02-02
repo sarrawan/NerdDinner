@@ -49,6 +49,14 @@
 
         <p>
             <div>
+                <label>Contact Email:</label>
+            </div>
+            @Html.TextBox("ContactEmail", Model.Dinner.ContactEmail)
+            @Html.ValidationMessage("ContactEmail", "", new { @class = "text-danger" })
+        </p>
+        
+        <p>
+            <div>
                 <label>Hosted By:</label>
             </div>
             @Html.TextBox("HostedBy", Model.Dinner.HostedBy)
@@ -62,3 +70,4 @@
     </fieldset>
 
 }
+

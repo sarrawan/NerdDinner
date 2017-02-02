@@ -51,6 +51,14 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.ContactEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactEmail)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.HostedBy)
         </dt>
 
@@ -58,11 +66,15 @@
             @Html.DisplayFor(model => model.HostedBy)
         </dd>
 
-        
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit Dinner", "Edit", new { id = Model.DinnerID }) |
-    @Html.ActionLink("Delete Dinner", "Delete", new {id=Model.DinnerID})
+    @{
+        if (Model.IsHostedBy(Context.User.Identity.Name))
+        {
+            @Html.ActionLink("Edit Dinner", "Edit", new { id = Model.DinnerID });
+            @Html.ActionLink("Delete Dinner", "Delete", new { id = Model.DinnerID });
+
+        }
+    }
 </p>

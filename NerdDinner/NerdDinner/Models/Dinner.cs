@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace NerdDinner.Models
 {
-    [Bind(Include = "Title, Description, EventDate, Address, Country, HostedBy, CountryID")]
+    [Bind(Include = "Title, Description, EventDate, Address, Country, ContactEmail, CountryID, HostedBy")]
     public class Dinner
     {
         public int DinnerID { get; set; }
@@ -26,6 +26,9 @@ namespace NerdDinner.Models
 
         [Required(ErrorMessage = "*Please enter your email address")]
         [RegularExpression(".+\\@.+\\..+", ErrorMessage = "Please enter a valid email address")]
+        public string ContactEmail { get; set; }
+
+        [Required(ErrorMessage = "Please enter who is hosting the Dinner")]
         public string HostedBy { get; set; }
 
         [Required(ErrorMessage = "*Please enter the Country of the Dinner")]
@@ -37,6 +40,10 @@ namespace NerdDinner.Models
 
         public virtual ICollection<RSVP> RSVPs { get; set; }
 
+        public bool IsHostedBy(string userName)
+        {
+            return ContactEmail.Equals(userName, StringComparison.InvariantCultureIgnoreCase);
+        }
 
     }
 }
