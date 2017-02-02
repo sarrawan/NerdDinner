@@ -76,7 +76,7 @@ namespace NerdDinner.Controllers
             //return View(dinner);
         }
 
-        [Authorize(Roles = "admin")]
+        //[Authorize(Roles = "admin")]
         // GET: Dinners/Create
         public ActionResult Create()
         {
@@ -100,6 +100,10 @@ namespace NerdDinner.Controllers
 
                 RSVP rsvp = new RSVP();
                 rsvp.AttendeeName = User.Identity.Name;
+                //if (dinner.RSVPs == null)
+                //{
+                //    dinner.RSVPs = new List<RSVP>();
+                //}
                 dinner.RSVPs.Add(rsvp);
            
                 nerdDinnersDB.Dinners.Add(dinner);

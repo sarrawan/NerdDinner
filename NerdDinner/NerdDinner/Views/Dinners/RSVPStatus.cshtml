@@ -1,0 +1,26 @@
+﻿@model NerdDinner.Models.Dinner
+<div id="rsvpmsg">
+@{
+
+    if (Request.IsAuthenticated)
+    {
+        if (Model.IsUserRegistered(Context.User.Identity.Name))
+        {
+            <p style="color: red">
+                You are registered for this event!
+            </p>
+        }
+        else
+        {
+            <a>RSVP for this event</a>
+        }
+    }
+    else
+    {
+        <div>
+            <a href="/Account/Login">Log In</a> to RSVP for this event.
+        </div>
+    }
+
+}
+</div>

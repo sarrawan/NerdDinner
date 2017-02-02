@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace NerdDinner.Models
 {
-    [Bind(Include = "Title, Description, EventDate, Address, Country, ContactEmail, CountryID, HostedBy")]
+    [Bind(Include = "Title, Description, EventDate, Address, Country, ContactEmail, CountryID, HostedBy, RSVPs")]
     public class Dinner
     {
         public int DinnerID { get; set; }
@@ -38,11 +38,16 @@ namespace NerdDinner.Models
         public string Description { get; set; }
         public virtual Country Country { get; set; }
 
-        public virtual ICollection<RSVP> RSVPs { get; set; }
+        public virtual ICollection<RSVP> RSVPs { get; set; } = new List<RSVP>();
 
         public bool IsHostedBy(string userName)
         {
             return ContactEmail.Equals(userName, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public bool IsUserRegistered(string userName)
+        {
+            return RSVPs.Any(r => r.AttendeeName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
         }
 
     }
