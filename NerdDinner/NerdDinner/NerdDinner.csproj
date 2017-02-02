@@ -264,6 +264,7 @@
     <Content Include="Views\Dinners\InvalidOwner.cshtml" />
     <Content Include="Views\Dinners\RSVPStatus.cshtml" />
     <Content Include="Views\Dinners\EditAndDeleteLinks.cshtml" />
+    <Content Include="Views\Dinners\Map.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

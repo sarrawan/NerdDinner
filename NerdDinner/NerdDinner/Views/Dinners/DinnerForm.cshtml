@@ -46,6 +46,22 @@
             </div>
             @Html.DropDownList("CountryID", null, htmlAttributes: new { @class  ="form-control"})
         </p>
+        
+        <p>
+            <div>
+                <label>Latitude:</label>
+            </div>
+            @Html.TextBox("Latitude", Model.Dinner.Latitude)
+            @Html.ValidationMessage("Latitude", "", new { @class = "text-danger" })
+        </p>
+        
+        <p>
+            <div>
+                <label>Longitude:</label>
+            </div>
+            @Html.TextBox("Longitude", Model.Dinner.Longitude)
+            @Html.ValidationMessage("Longitude", "", new { @class = "text-danger" })
+        </p>
 
         <p>
             <div>

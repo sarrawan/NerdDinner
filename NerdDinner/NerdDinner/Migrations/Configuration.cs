@@ -47,7 +47,9 @@ namespace NerdDinner.Migrations
                     Country = countires.Single(c => c.Name == "USA"),
                     ContactEmail = "ScottGu@gmail.com",
                     HostedBy = "Scott",
-                    Description = ""
+                    Description = "",
+                    Latitude = 41.2,
+                    Longitude = -122.3
                 },
                 new Dinner
                 {
@@ -57,7 +59,9 @@ namespace NerdDinner.Migrations
                     Country = countires.Single(c => c.Name == "UK"),
                     ContactEmail = "ScottGu@gmail.com",
                     HostedBy = "Scott",
-                    Description = ""
+                    Description = "",
+                    Latitude = 60.5,
+                    Longitude = -100.5
                 },
                 new Dinner
                 {
@@ -67,7 +71,9 @@ namespace NerdDinner.Migrations
                     Country = countires.Single(c => c.Name == "Netherlands"),
                     ContactEmail = "ScottGu@gmail.com",
                     HostedBy = "Scott",
-                    Description = ""
+                    Description = "",
+                    Latitude = 50.2,
+                    Longitude = -122.3
                 }
             };
 

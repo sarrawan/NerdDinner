@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace NerdDinner.Models
 {
-    [Bind(Include = "Title, Description, EventDate, Address, Country, ContactEmail, CountryID, HostedBy, RSVPs")]
+    [Bind(Include = "Title, Description, EventDate, Address, Country, ContactEmail, CountryID, HostedBy, RSVPs, Latitude, Longitude")]
     public class Dinner
     {
         public int DinnerID { get; set; }
@@ -37,6 +37,11 @@ namespace NerdDinner.Models
 
         public string Description { get; set; }
         public virtual Country Country { get; set; }
+
+        
+        public double Latitude { get; set; }
+
+        public double Longitude { get; set; }
 
         public virtual ICollection<RSVP> RSVPs { get; set; } = new List<RSVP>();
 
