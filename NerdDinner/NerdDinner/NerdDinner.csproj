@@ -162,7 +162,7 @@
     <Compile Include="Models\DinnerFromViewModel.cs" />
     <Compile Include="Models\NerdDinners.cs" />
     <Compile Include="Models\NerdDinnersInitializer.cs" />
-    <Compile Include="Models\PaginatedList.cs" />
+    <Compile Include="Helpers\PaginatedList.cs" />
     <Compile Include="Models\RSVP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

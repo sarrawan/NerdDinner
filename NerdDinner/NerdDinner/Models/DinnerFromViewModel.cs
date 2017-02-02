@@ -8,6 +8,7 @@ namespace NerdDinner.Models
 {
     public class DinnerFromViewModel
     {
+        NerdDinners nerdDinnerDB = new NerdDinners();
 
         public Dinner Dinner { get; set; }
         public SelectList Countries { get; set; }
@@ -15,20 +16,7 @@ namespace NerdDinner.Models
         public DinnerFromViewModel(Dinner dinner)
         {
             Dinner = dinner;
-            IEnumerable<string> list = new List<string>
-            {
-                "USA",
-                "UK",
-                "Netherlands"
-            };
-            Countries = new SelectList(list, list.First());
-        }
-
-        public enum CountriesEnum
-        {
-            USA = 1,
-            UK = 2,
-            Netherlands = 3
+            Countries = new SelectList(nerdDinnerDB.Countries, dinner.Country);
         }
     }
 }

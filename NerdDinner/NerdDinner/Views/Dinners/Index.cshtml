@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NerdDinner.Models.Dinner>
+﻿@model NerdDinner.Helpers.PaginatedList<NerdDinner.Models.Dinner>
 
 @{
     ViewBag.Title = "Index";
@@ -8,15 +8,26 @@
 
 <ul>
 
-@foreach (var item in Model) {
-    <li>
-        <a href="@Url.Action("Details", new {id = item.DinnerID})">
-            <span>@Html.DisplayFor(modelItem => item.Title)</span>
-        </a>
-        <text> on </text>
-        @String.Format("{0:d}", item.EventDate.ToShortDateString())
-        <text> at </text>
-        @String.Format("{0:d}", item.EventDate.ToShortTimeString())
-    </li>
-}
+    @foreach (var item in Model) {
+        <li>
+            <a href="@Url.Action("Details", new {id = item.DinnerID})">
+                <span>@Html.DisplayFor(modelItem => item.Title)</span>
+            </a>
+            <text> on </text>
+            @String.Format("{0:d}", item.EventDate.ToShortDateString())
+            <text> at </text>
+            @String.Format("{0:d}", item.EventDate.ToShortTimeString())
+        </li>
+    }
 </ul>
+
+@{
+    if (Model.HasPreviousPage())
+    {
+        @Html.RouteLink("<<<", "UpcomingDinners", new {page = (Model.PageIndex - 1)});
+    }
+    if (Model.HasNextPage())
+    {
+        @Html.RouteLink(">>>","UpcomingDinners", new { page = (Model.PageIndex + 1)});
+    }
+}

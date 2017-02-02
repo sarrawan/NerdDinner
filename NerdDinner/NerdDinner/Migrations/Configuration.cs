@@ -56,6 +56,15 @@ namespace NerdDinner.Migrations
                     Country = countires.Single(c => c.Name == "UK"),
                     HostedBy = "ScottGu@gmail.com",
                     Description = ""
+                },
+                new Dinner
+                {
+                    Title = "Sample Dinner 3",
+                    EventDate = DateTime.Parse("4/1/2017"),
+                    Address = "Two Microsoft Way",
+                    Country = countires.Single(c => c.Name == "Netherlands"),
+                    HostedBy = "ScottGu@gmail.com",
+                    Description = ""
                 }
             };
 
