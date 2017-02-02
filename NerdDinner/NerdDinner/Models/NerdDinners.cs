@@ -12,6 +12,8 @@ namespace NerdDinner.Models
         public DbSet<Dinner> Dinners { get; set; }
         public DbSet<RSVP> RSVPs { get; set; }
 
+        public DbSet<Country> Countries { get; set; }
+
         public IQueryable<Dinner> FindUpcomingDinners()
         {
             return from dinner in Dinners
@@ -19,5 +21,7 @@ namespace NerdDinner.Models
                 orderby dinner.EventDate
                 select dinner;
         }
+
+
     }
 }

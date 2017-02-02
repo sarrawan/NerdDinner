@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Web.Mvc;
 
 namespace NerdDinner.Models
 {
-    [Bind(Include = "Title, Description, EventDate, Address, Country, HostedBy")]
+    [Bind(Include = "Title, Description, EventDate, Address, Country, HostedBy, CountryID")]
     public class Dinner
     {
         public int DinnerID { get; set; }
@@ -28,9 +29,11 @@ namespace NerdDinner.Models
         public string HostedBy { get; set; }
 
         [Required(ErrorMessage = "*Please enter the Country of the Dinner")]
-        public string Country { get; set; }
+        [DisplayName("Country")]
+        public int CountryID { get; set; }
 
         public string Description { get; set; }
+        public virtual Country Country { get; set; }
 
         public virtual ICollection<RSVP> RSVPs { get; set; }
 

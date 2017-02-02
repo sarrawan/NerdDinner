@@ -1,9 +1,66 @@
-﻿@model NerdDinner.Models.DinnerFromViewModel
+﻿@model NerdDinner.Models.Dinner
 
 <h2>Host a Dinner</h2>
 
-@{
-    Html.RenderPartial("DinnerForm");
+@using (Html.BeginForm())
+{
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <fieldset class="form-horizontal">
+        <p>
+            <div>
+                <label>Dinner Title:</label>
+            </div>
+            @Html.TextBox("Title", Model.Title)
+            @Html.ValidationMessage("Title", "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            <div>
+                <label>Event Date:</label>
+            </div>
+            @Html.TextBox("EventDate", String.Format("{0:g}", Model.EventDate))
+            @Html.ValidationMessage("EventDate", "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            <div>
+                <label>Description:</label>
+            </div>
+            @Html.TextArea("Description", Model.Description)
+            @Html.ValidationMessage("Description", "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            <div>
+                <label>Address:</label>
+            </div>
+            @Html.TextBox("Address", Model.Address)
+            @Html.ValidationMessage("Address", "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            <div>
+                <label>Country:</label>
+            </div>
+            @Html.DropDownList("CountryID", null, htmlAttributes: new { @class = "form-control" })
+        </p>
+
+        <p>
+            <div>
+                <label>Hosted By:</label>
+            </div>
+            @Html.TextBox("HostedBy", Model.HostedBy)
+            @Html.ValidationMessage("HostedBy", "", new { @class = "text-danger" })
+        </p>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+
+    </fieldset>
+
 }
 
 <div>

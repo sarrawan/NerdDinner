@@ -1,4 +1,6 @@
-﻿@model NerdDinner.Models.DinnerFromViewModel
+﻿@model NerdDinner.Models.Dinner
+    
+
 
 @using (Html.BeginForm())
 {
@@ -42,8 +44,7 @@
             <div>
                 <label>Country:</label>
             </div>
-            @Html.TextBox("Country", Model.Dinner.Country)
-            @Html.ValidationMessage("Country", "", new { @class = "text-danger" })
+            @Html.DropDownList("CountryID", null, htmlAttributes: new { @class  ="form-control"})
         </p>
 
         <p>

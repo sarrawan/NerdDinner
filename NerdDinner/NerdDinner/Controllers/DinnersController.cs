@@ -18,12 +18,15 @@ namespace NerdDinner.Controllers
         //      Dinners?page=2
         public ActionResult Index(int? page)
         {
-            const int pageSize = 10;
-            //var allDinners = nerdDinnersDB.Dinners.ToList();
-            var upcomingDinners = nerdDinnersDB.FindUpcomingDinners();
-            var paginatedDinners = new PaginatedList<Dinner>(upcomingDinners, page ?? 0, pageSize);
-                //upcomingDinners.Skip((page ?? 0) * pageSize).Take(pageSize).ToList();
-            return View(paginatedDinners);
+            //const int pageSize = 10;
+            ////var allDinners = nerdDinnersDB.Dinners.ToList();
+            //var upcomingDinners = nerdDinnersDB.FindUpcomingDinners();
+            //var paginatedDinners = new PaginatedList<Dinner>(upcomingDinners, page ?? 0, pageSize);
+            //    //upcomingDinners.Skip((page ?? 0) * pageSize).Take(pageSize).ToList();
+            //return View(paginatedDinners);
+
+            var dinners = nerdDinnersDB.Dinners.Include(d => d.Country);
+            return View(dinners.ToList());
         }
 
         // GET: Dinners/Details/1
@@ -40,10 +43,11 @@ namespace NerdDinner.Controllers
         // GET: Dinners/Edit/1
         public ActionResult Edit(int id)
         {
-            var dinner = nerdDinnersDB.Dinners.SingleOrDefault(d => d.DinnerID == id);
+            var dinner = nerdDinnersDB.Dinners.Find(id);
             //ViewBag.Country = new SelectList(dinner.CountryCollection, "id", "value");
-            ViewBag.Country = new SelectList(nerdDinnersDB.Dinners, "Country", "Country").Distinct();
-            return View(new DinnerFromViewModel(dinner));
+            ViewBag.CountryID = new SelectList(nerdDinnersDB.Countries, "CountryID", "Name", dinner.CountryID);
+            //return View(new DinnerFromViewModel(dinner));
+            return View(dinner);
         }
 
         // POST: Dinners/Edit/1
@@ -58,8 +62,9 @@ namespace NerdDinner.Controllers
                 nerdDinnersDB.SaveChanges();
                 return RedirectToAction("Details", new {id = dinner.DinnerID});
             }
-            //ViewBag.Country = new SelectList(dinner.CountryCollection, "Countries", "Name", dinner.Country);
-            return View(new DinnerFromViewModel(dinner));
+            ViewBag.CountryID = new SelectList(nerdDinnersDB.Countries, "CountryID", "Name", dinner.CountryID);
+            //return View(new DinnerFromViewModel(dinner));
+            return View(dinner);
         }
 
         // GET: Dinners/Create
@@ -69,7 +74,9 @@ namespace NerdDinner.Controllers
             {
                 EventDate = DateTime.Now.AddDays(7)
             };
-            return View(new DinnerFromViewModel(dinner));
+            ViewBag.CountryID = new SelectList(nerdDinnersDB.Countries, "CountryID", "Name");
+            //return View(new DinnerFromViewModel(dinner));
+            return View(dinner);
         }
 
         // POST: /Dinners/Create
@@ -83,7 +90,9 @@ namespace NerdDinner.Controllers
                 return RedirectToAction("Details", new {id=dinner.DinnerID});
             }
 
-            return View(new DinnerFromViewModel(dinner));
+            //return View(new DinnerFromViewModel(dinner));
+            ViewBag.CountryID = new SelectList(nerdDinnersDB.Countries, "CountryID", "Name", dinner.CountryID);
+            return View(dinner);
         }
 
         //GET: Dinners/Delete/1
