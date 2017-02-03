@@ -21,7 +21,7 @@ namespace NerdDinner.Models
         public DateTime EventDate { get; set; }
 
         [Required(ErrorMessage = "*Please enter the Location of the Dinner")]
-        [StringLength(30, ErrorMessage = "Address is too long")]
+        [StringLength(100, ErrorMessage = "Address is too long")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "*Please enter your email address")]
