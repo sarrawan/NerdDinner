@@ -15,12 +15,17 @@ namespace NerdDinner.Controllers
     {
         //NerdDinners nerdDinnersDB = new NerdDinners();
         //private INerdDinners nerdDinnersDB;
-        DinnerRepository dinnerRepository = new DinnerRepository();
+        //DinnerRepository dinnerRepository = new DinnerRepository();
+        private IDinnerRepository iDinnerRepos;
 
-        //public DinnersController(INerdDinners repository)
-        //{
-        //    nerdDinnersDB = repository;
-        //}
+        public DinnersController() : this(new DinnerRepository())
+        {
+        }
+
+        public DinnersController(IDinnerRepository repository)
+        {
+            iDinnerRepos = repository;
+        }
 
         // GET: Dinners
         //      Dinners/page/2
@@ -29,7 +34,7 @@ namespace NerdDinner.Controllers
             const int pageSize = 10;
             ////var allDinners = nerdDinnersDB.Dinners.ToList();
             //var upcomingDinners = nerdDinnersDB.FindUpcomingDinners();
-            var upcomingDinners = dinnerRepository.FindUpcomingDinners();
+            var upcomingDinners = iDinnerRepos.FindUpcomingDinners();
             var paginatedDinners = new PaginatedList<Dinner>(upcomingDinners, page ?? 0, pageSize);
             //    //upcomingDinners.Skip((page ?? 0) * pageSize).Take(pageSize).ToList();
             //return View(paginatedDinners);
@@ -42,7 +47,7 @@ namespace NerdDinner.Controllers
         public ActionResult Details(int id)
         {
             //var singleDinner = nerdDinnersDB.Dinners.Find(id);
-            var singleDinner = dinnerRepository.GetDinner(id);
+            var singleDinner = iDinnerRepos.GetDinner(id);
             if (singleDinner == null)
             {
                 return View("NotFound");
@@ -55,9 +60,9 @@ namespace NerdDinner.Controllers
         public ActionResult Edit(int id)
         {
             //var dinner = nerdDinnersDB.Dinners.Find(id);
-            var dinner = dinnerRepository.GetDinner(id);
+            var dinner = iDinnerRepos.GetDinner(id);
             //ViewBag.Country = new SelectList(dinner.CountryCollection, "id", "value");
-            ViewBag.CountryID = new SelectList(dinnerRepository.GetCountries(), "CountryID", "Name", dinner.CountryID);
+            ViewBag.CountryID = new SelectList(iDinnerRepos.GetCountries(), "CountryID", "Name", dinner.CountryID);
             if (!dinner.IsHostedBy(User.Identity.Name))
             {
                 return View("InvalidOwner");
@@ -72,19 +77,31 @@ namespace NerdDinner.Controllers
         public ActionResult Edit(int id, FormCollection formValues)
         {
 
-            Dinner dinner = dinnerRepository.GetDinner(id);
+            Dinner dinner = iDinnerRepos.GetDinner(id);
+            if (!dinner.IsHostedBy(User.Identity.Name))
+            {
+                return View("InvalidOwner");
+            }
 
-            dinner.Title = Request.Form["Title"];
-            dinner.Description = Request.Form["Description"];
-            dinner.EventDate = DateTime.Parse(Request.Form["EventDate"]);
-            dinner.Address = Request.Form["Address"];
-            //dinner.Country = new Country(Request.Form["CountryID"]);
-            dinner.Country = dinnerRepository.GetCountry(Convert.ToInt32(Request.Form["CountryID"]));
-            //dinner.Country = Request.Form["Country"];
-            dinner.ContactEmail = Request.Form["ContactEmail"];
-            dinnerRepository.Save();
-            ViewBag.CountryID = new SelectList(dinnerRepository.GetCountries(), "CountryID", "Name", dinner.CountryID);
-            return RedirectToAction("Details", new {id = dinner.DinnerID});
+            try
+            {
+                //dinner.Title = Request.Form["Title"];
+                //dinner.Description = Request.Form["Description"];
+                //dinner.EventDate = DateTime.Parse(Request.Form["EventDate"]);
+                //dinner.Address = Request.Form["Address"];
+                ////dinner.Country = new Country(Request.Form["CountryID"]);
+                //dinner.Country = iDinnerRepos.GetCountry(Convert.ToInt32(Request.Form["CountryID"]));
+                ////dinner.Country = Request.Form["Country"];
+                //dinner.ContactEmail = Request.Form["ContactEmail"];
+                UpdateModel(dinner);
+                iDinnerRepos.Save();
+                ViewBag.CountryID = new SelectList(iDinnerRepos.GetCountries(), "CountryID", "Name", dinner.CountryID);
+                return RedirectToAction("Details", new {id = dinner.DinnerID});
+            }
+            catch
+            {
+                return View(new DinnerFromViewModel(dinner));
+            }
 
             //if (ModelState.IsValid)
             //{
@@ -111,7 +128,7 @@ namespace NerdDinner.Controllers
             {
                 EventDate = DateTime.Now.AddDays(7)
             };
-            ViewBag.CountryID = new SelectList(dinnerRepository.GetCountries(), "CountryID", "Name");
+            ViewBag.CountryID = new SelectList(iDinnerRepos.GetCountries(), "CountryID", "Name");
             return View(new DinnerFromViewModel(dinner));
             //return View(dinner);
         }
@@ -121,7 +138,7 @@ namespace NerdDinner.Controllers
         [Authorize]
         public ActionResult Create(Dinner dinner)
         {
-            dinner.Country = dinnerRepository.GetCountry(Convert.ToInt32(Request.Form["CountryID"]));
+            dinner.Country = iDinnerRepos.GetCountry(Convert.ToInt32(Request.Form["CountryID"]));
             if (ModelState.IsValid)
             {
                 dinner.HostedBy = User.Identity.Name;
@@ -135,15 +152,15 @@ namespace NerdDinner.Controllers
                 dinner.RSVPs.Add(rsvp);
            
                 //nerdDinnersDB.Dinners.Add(dinner);
-                dinnerRepository.Add(dinner);
+                iDinnerRepos.Add(dinner);
                 //nerdDinnersDB.SaveChanges();
-                dinnerRepository.Save();
+                iDinnerRepos.Save();
                 
                 return RedirectToAction("Details", new {id=dinner.DinnerID});
             }
 
             //
-            ViewBag.CountryID = new SelectList(dinnerRepository.GetCountries(), "CountryID", "Name", dinner.CountryID);
+            ViewBag.CountryID = new SelectList(iDinnerRepos.GetCountries(), "CountryID", "Name", dinner.CountryID);
             //return View(dinner);
             return View(new DinnerFromViewModel(dinner));
         }
@@ -155,7 +172,7 @@ namespace NerdDinner.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dinner dinner = dinnerRepository.GetDinner((int)id); //nerdDinnersDB.Dinners.Find(id);
+            Dinner dinner = iDinnerRepos.GetDinner((int)id); //nerdDinnersDB.Dinners.Find(id);
 
             if (dinner == null)
             {
@@ -168,11 +185,11 @@ namespace NerdDinner.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-            Dinner dinner = dinnerRepository.GetDinner(id); //nerdDinnersDB.Dinners.Find(id);
+            Dinner dinner = iDinnerRepos.GetDinner(id); //nerdDinnersDB.Dinners.Find(id);
             //nerdDinnersDB.Dinners.Remove(dinner);
-            dinnerRepository.Delete(dinner);
+            iDinnerRepos.Delete(dinner);
             //nerdDinnersDB.SaveChanges();
-            dinnerRepository.Save();
+            iDinnerRepos.Save();
             return View("Deleted");
         }
     }

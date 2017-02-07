@@ -6,8 +6,20 @@ using System.Web;
 
 namespace NerdDinner.Models
 {
+    public interface IDinnerRepository
+    {
+        IQueryable<Dinner> FindAllDinners();
+        IQueryable<Dinner> FindUpcomingDinners();
+        Dinner GetDinner(int id);
+        Country GetCountry(int id);
+        void Add(Dinner dinner);
+        void Delete(Dinner dinner);
+        void Save();
+        IQueryable<Country> GetCountries();
+        IQueryable<Dinner> FindByLocation(float lat, float lon);
+    }
 
-    public class DinnerRepository
+    public class DinnerRepository : IDinnerRepository
     {
         private NerdDinners db = new NerdDinners();
 
@@ -61,9 +73,14 @@ namespace NerdDinner.Models
             db.SaveChanges();
         }
 
-        public DbSet<Country> GetCountries()
+        public IQueryable<Country> GetCountries()
         {
             return db.Countries;
+        }
+
+        public IQueryable<Dinner> FindByLocation(float latitude, float longitude)
+        {
+            return db.FindByLocation(latitude, longitude);
         }
 
     }

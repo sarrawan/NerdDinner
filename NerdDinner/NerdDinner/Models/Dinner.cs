@@ -47,7 +47,7 @@ namespace NerdDinner.Models
 
         public bool IsHostedBy(string userName)
         {
-            return ContactEmail.Equals(userName, StringComparison.InvariantCultureIgnoreCase);
+            return HostedBy.Equals(userName, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public bool IsUserRegistered(string userName)

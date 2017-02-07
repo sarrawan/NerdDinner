@@ -9,8 +9,15 @@ using NerdDinner.Models;
 
 namespace NerdDinner.Tests.Fakes
 {
-    public class FakeDinnerRepository 
+    public class FakeDinnerRepository : IDinnerRepository
     {
+        List<Country> countires = new List<Country>
+            {
+                new Country {Name = "USA"},
+                new Country {Name = "UK"},
+                new Country {Name = "Netherlands"}
+            };
+
         private List<Dinner> dinnerList;
 
         public FakeDinnerRepository(List<Dinner> dinners)
@@ -18,69 +25,59 @@ namespace NerdDinner.Tests.Fakes
             dinnerList = dinners;
         }
 
-        public DbSet<Country> Countries
+        public void Add(Dinner dinner)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            dinnerList.Add(dinner);
         }
 
-        public DbSet<Dinner> Dinners
+        public void Delete(Dinner dinner)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            dinnerList.Remove(dinner);
         }
 
-        public DbSet<RSVP> RSVPs
+        public IQueryable<Dinner> FindAllDinners()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public DbEntityEntry Entry(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Dinner> FindByLocation(float latitude, float longitude)
-        {
-            throw new NotImplementedException();
+            return dinnerList.AsQueryable();
         }
 
         public IQueryable<Dinner> FindUpcomingDinners()
         {
-            return (from dinner in dinnerList
-                    where dinner.EventDate > DateTime.Now
-                    select dinner).AsQueryable();
+            return (from dinner in dinnerList where dinner.EventDate > DateTime.Now select dinner).AsQueryable();
         }
 
-        public void SaveChanges()
+        public IQueryable<Country> GetCountries()
+        {
+            return countires.AsQueryable();
+        }
+
+        public Country GetCountry(int id)
+        {
+            Dinner din = GetDinner(id);
+            return din.Country;
+        }
+
+        public Dinner GetDinner(int id)
+        {
+            return dinnerList.SingleOrDefault(d => d.DinnerID == id);
+        }
+
+        public void Save()
         {
             foreach (Dinner dinner in dinnerList)
             {
-                //if (!dinner.IsValid)
-                  //  throw new ApplicationException("Rule violations");
+                if (!dinner.IsValid)
+                {
+                    throw new ApplicationException("Rule Violation");
+                }
             }
+        }
+
+        public IQueryable<Dinner> FindByLocation(float latitude, float longitude)
+        {
+            return
+            (from dinner in dinnerList
+                where dinner.Latitude == latitude && dinner.Longitude == longitude
+                select dinner).AsQueryable();
         }
     }
 }
