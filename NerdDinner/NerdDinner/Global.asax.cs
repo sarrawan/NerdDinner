@@ -16,6 +16,8 @@ namespace NerdDinner
             // when make change to model class, db breaks since if not updated since doesnt
             // recognize change
             // this line updates db if there is a change to keep db up to date 
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<NerdDinners>());
+
             Database.SetInitializer<NerdDinners>(new NerdDinnersInitializer());
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);

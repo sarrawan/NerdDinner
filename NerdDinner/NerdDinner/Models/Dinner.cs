@@ -55,5 +55,44 @@ namespace NerdDinner.Models
             return RSVPs.Any(r => r.AttendeeName.Equals(userName, StringComparison.InvariantCultureIgnoreCase));
         }
 
+        public bool IsValid
+        {
+            get { return (GetRuleViolations().Count() == 0); }
+        }
+
+        public IEnumerable<RuleViolation> GetRuleViolations()
+        {
+
+            if (String.IsNullOrEmpty(Title))
+                yield return new RuleViolation("Title required", "Title");
+
+            if (String.IsNullOrEmpty(Description))
+                yield return new RuleViolation("Description required", "Description");
+
+            if (String.IsNullOrEmpty(HostedBy))
+                yield return new RuleViolation("HostedBy required", "HostedBy");
+
+            if (String.IsNullOrEmpty(Address))
+                yield return new RuleViolation("Address required", "Address");
+
+            if (String.IsNullOrEmpty(ContactEmail))
+                yield return new RuleViolation("Email required", "ContactEmail");
+
+            yield break;
+        }
+
+
+    }
+
+    public class RuleViolation
+    {
+        public string ErrorMessage { get; private set; }
+        public string PropertyName { get; private set; }
+
+        public RuleViolation(string errorMessage, string propertyName)
+        {
+            ErrorMessage = errorMessage;
+            PropertyName = propertyName;
+        }
     }
 }
